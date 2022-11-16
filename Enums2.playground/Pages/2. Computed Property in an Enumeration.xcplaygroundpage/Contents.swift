@@ -32,7 +32,6 @@ Create a computed variable property in Vehicle called description that returns a
 
 */
 
-
 /*:
  2.Instantiate a constant named myRide that is an instance of the Vehicle enumeration of case truck where isFourWheelDrive is true.
  */
@@ -47,14 +46,28 @@ enum Vehicle {
     case truck(isFourWheelDrive: Bool)
     
     // 1: Create computed value here
-    
+    var description: String{
+        switch self {
+        case.boat:
+            return("This is a boat")
+        case.airplane:
+            return("This is an airplane")
+        case let .truck(isFourWheelDrive):
+            if isFourWheelDrive == true{
+                return "This is a truck with four wheels"
+            }
+            else{
+                return "This is a truck"
+            }
+        }
+    }
 }
  
 // 2: Instantiate myRide constant here
- 
+let myRide = Vehicle.truck(isFourWheelDrive: false)
 
 // 3: Print the description of myRide here
-
+print(myRide)
 
 
 //: [Next](@next)

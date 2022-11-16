@@ -18,7 +18,19 @@
  3. We’re going to want to iterate across this enumeration so let’s make it conform to the right protocol to enable this.
  4. We want a method that prints all available product types. Define a method called displayProductOfferings(). When called it should print "There are {number of products} products": then print all product cases defined in ProductType.
 */
-
+enum productType:String, CaseIterable{
+    case aceRepository = "Ace Repository"
+    case dealForcer = "Deal Forcer"
+    case kadencePlanner = "Kandence Planner"
+    case mailCannon = "Mail Cannon"
+    
+    func displayProductOfferings(){
+        for i in productType.allCases{
+            print(i)
+            count += 1
+        }
+        print("There are \(count) products")
+    }
 
 
 
