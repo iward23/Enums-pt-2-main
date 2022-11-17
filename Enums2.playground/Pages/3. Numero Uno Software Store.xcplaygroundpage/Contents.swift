@@ -25,6 +25,7 @@ enum productType:String, CaseIterable{
     case mailCannon = "Mail Cannon"
     
     func displayProductOfferings(){
+        var count = 0
         for i in productType.allCases{
             print(i)
             count += 1
@@ -41,7 +42,23 @@ enum productType:String, CaseIterable{
  7. Let’s create a mutating method upgrade() that sets its own value one step higher unless it is the highest edition, in which case it should print "Can’t upgrade further to the console." For example, if an instance of Edition is set to the basic case, upgrade() should set the instance to case premium.
  */
 
-
+    enum Edition: String, CaseIterable{
+        case basic = "basic"
+        case premium = "premium"
+        case ultimate = "ultimate"
+        
+        mutating func upgrade(){
+            switch self{
+            case .basic:
+                self = .premium
+            case .premium:
+                self = .ultimate
+            case .ultimate:
+                print("Can't upgrade further to the console.")
+            }
+            
+        }
+    }
 
 
 
@@ -51,7 +68,23 @@ enum productType:String, CaseIterable{
  9. We’ll create two cases with associated values to represent the different delivery types. Create one case called cloudDigital that has an associated Bool value called isLifetime. Create another case called shipping that has an associated Int value called weight.
  10. We’ll use a computed property to calculate the shipping cost incurred by a software order. Create a computed Int property called shippingCost that is equal to the weight multiplied by 2 in the case that the delivery method is shipping. If the delivery method is cloudDigital, shippingCost should be 0.
  */
-
+    enum DeliveryMethod{
+        case cloudDigital(isLifetime: Bool)
+        case shipping(weight: Int)
+        
+        var shippingCost: Int{
+            switch self{
+            case .shipping(let weight):
+                return weight * 2
+                
+            case .cloudDigital:
+                return 0
+                
+            }
+            
+        }
+        
+    }
 
 
 
@@ -70,7 +103,23 @@ enum productType:String, CaseIterable{
 d.  If the shipping method is cloudDigital we want to then check the associated value isLifetime. If isLiftime is true we want to print to the console: ‘You have lifetime cloud access. Otherwise we want to print to the console:You can access your subscription information on the cloud`
 
  */
+    func sendOrderComfirmation(productType: ProductType, edition: Edition, deliveryMethod: DeliveryMethod){
+        print("Thank you for purchasing \(edition.rawValue) edition of \(productType).")
+        switch deliveryMethod
+        {
+        case .shipping:
+            print("your order will be shipped to you at a cost of $\(deliveryMethod.shippingCost)")
 
+        case .cloudDigital(let isLifetime):
+            if isLifetime{
+                print("You have lifetime cloud access.")
+            }
+            else{
+                print("You can access your subscription information on the cloud")
+            }
+            
+        }
+    }
 
 
 
